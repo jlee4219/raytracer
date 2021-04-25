@@ -1,5 +1,7 @@
 import numpy as np
 
+# TODO(Jefferson): after switching to use numpy for general calculation, data model
+# here feels less optimal and could likely be improved.
 class vec3:
     def __init__(self, data = np.array([0., 0., 0.])):
         self.data = np.array(data)
@@ -62,5 +64,4 @@ class vec3:
 
     def normalized(self):
         return self / self.length()
-
 
