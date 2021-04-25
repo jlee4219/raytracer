@@ -2,7 +2,7 @@ import numpy as np
 
 # TODO(Jefferson): after switching to use numpy for general calculation, data model
 # here feels less optimal and could likely be improved.
-class vec3:
+class Vec3:
     def __init__(self, data = np.array([0., 0., 0.])):
         self.data = np.array(data)
 
@@ -25,16 +25,16 @@ class vec3:
         return self.data[2]
 
     def __add__(self, other):
-        return vec3(data = (self.x() + other.x(), self.y() + other.y(), self.z() + other.z()))
+        return Vec3(data = (self.x() + other.x(), self.y() + other.y(), self.z() + other.z()))
 
     def __sub__(self, other):
-        return vec3(data = (self.x() - other.x(), self.y() - other.y(), self.z() - other.z()))
+        return Vec3(data = (self.x() - other.x(), self.y() - other.y(), self.z() - other.z()))
 
     def __truediv__(self, scalar):
-        return vec3(data = (self.x() / scalar, self.y() / scalar, self.z() / scalar))
+        return Vec3(data = (self.x() / scalar, self.y() / scalar, self.z() / scalar))
 
     def __mul__(self, scalar):
-        return vec3(data = (self.x() * scalar, self.y() * scalar, self.z() * scalar))
+        return Vec3(data = (self.x() * scalar, self.y() * scalar, self.z() * scalar))
 
     def __getitem__(self, index):
         return self.data[index]
@@ -43,14 +43,14 @@ class vec3:
         return len(self.data)
 
     def __str__(self):
-        return 'vec3: ' + str(self.data)
+        return 'Vec3: ' + str(self.data)
 
     def dot(self, other):
         return self.x() * other.x() + self.y() * other.y() + self.z() * other.z()
 
     def cross(self, other):
         '''cross product of two vectors'''
-        return vec3(data=(
+        return Vec3(data=(
             self[1] * other[2] - self[2] * other[1],
             -(self[0] * other[2] - self[2] * other[1]),
             self[0] * other[1] - self[1] * other[0]

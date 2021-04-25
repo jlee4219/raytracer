@@ -1,6 +1,6 @@
-from src.vec3 import vec3
+from src.vec3 import Vec3
 
-class ray:
+class Ray:
     def __init__(self, origin, direction):
         self.origin = origin
         self.direction = direction
