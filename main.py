@@ -3,6 +3,9 @@ import matplotlib.image
 import numpy as np
 import time
 
+from src.vec3 import vec3
+from src.util import write_color
+
 IMAGE_WIDTH = 256
 IMAGE_HEIGHT = 256
 CONST_BLUE = 0.25
@@ -14,6 +17,6 @@ if __name__ == '__main__':
 
     for y in range(IMAGE_HEIGHT):
         for x in range(IMAGE_WIDTH):
-            data[y][x] = [(IMAGE_HEIGHT - y) / IMAGE_HEIGHT, x / IMAGE_WIDTH, CONST_BLUE]
+            write_color(data, y, x, vec3(data = ((IMAGE_HEIGHT - y) / IMAGE_HEIGHT, x / IMAGE_WIDTH, CONST_BLUE)))
 
     matplotlib.image.imsave('out.png', data)
