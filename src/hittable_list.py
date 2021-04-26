@@ -22,11 +22,13 @@ class HittableList(Hittable):
             if record:
                 record.t = np.where((new_record.t < closest_so_far), new_record.t, record.t)
                 record.normal = vec_where((new_record.t < closest_so_far), new_record.normal, record.normal)
+                record.front_face = np.where((new_record.t < closest_so_far), new_record.front_face, record.front_face)
                 record.p = vec_where((new_record.t < closest_so_far), new_record.p, record.p)
             else:
                 record = new_record
 
             closest_so_far = record.t
 
-        record.set_face_normal(r)
+        # TOD (Jefferson) moved this from sphere, might need to move back?
+        record.set_face_normal(r, record.normal)
         return record

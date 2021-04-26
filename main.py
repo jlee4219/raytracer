@@ -13,6 +13,7 @@ VIEWPORT_HEIGHT = 2
 CONST_BLUE = 0.25
 MAX_COLOR = 255
 MAX_VAL = np.Inf
+NUM_SAMPLES = 20
 
 def ray_color(r, world):
     hits = world.hit(r, 0, MAX_VAL)
@@ -43,16 +44,20 @@ if __name__ == '__main__':
 
     x = np.tile(np.linspace(lower_left_corner.x(), lower_left_corner.x() + viewport_width, IMAGE_WIDTH), image_height)
     y = np.repeat(np.linspace(lower_left_corner.y(), lower_left_corner.y() + VIEWPORT_HEIGHT, image_height), IMAGE_WIDTH)
-    uv = Vec3(data = (x, y, -focal_length))
 
-    r = Ray(origin, uv - origin)
-    color = ray_color(r, world)
+    colors = []
+    for i in range(NUM_SAMPLES):
+        x_fidget = np.random.rand(IMAGE_WIDTH * image_height) / (IMAGE_WIDTH - 1)
+        y_fidget = np.random.rand(IMAGE_WIDTH * image_height) / (image_height - 1)
+        uv = Vec3(data = (x + x_fidget, y + y_fidget, -focal_length))
+        r = Ray(origin, uv - origin)
+        colors.append(ray_color(r, world))
 
     for y in range(image_height):
         for x in range(IMAGE_WIDTH):
             u = x / IMAGE_WIDTH
             v = (image_height - y) / image_height
-            write_color(data, y, x, color)
+            write_color(data, y, x, colors, NUM_SAMPLES)
 
     matplotlib.image.imsave('out.png', data)
     print(f"Finished in {time.time() - start} seconds")

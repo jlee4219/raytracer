@@ -14,9 +14,9 @@ class HitRecord:
     normal: Vec3 = Vec3(data=(0., 0., 0.))
     front_face: np.array = None
 
-    def set_face_normal(self, r: Ray):
-        self.front_face = r.direction.dot(self.normal)
-        self.normal = vec_where(self.front_face, self.normal, self.normal * -1.)
+    def set_face_normal(self, r: Ray, outward_normal):
+        self.front_face = r.direction.dot(self.normal) < 0
+        self.normal = vec_where(self.front_face, outward_normal, outward_normal * -1.)
 
 class Hittable(ABC):
     @abstractmethod
