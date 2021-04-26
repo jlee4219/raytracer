@@ -21,4 +21,7 @@ class Sphere(Hittable):
         second_root = np.where((discriminant > 0) & (root > t_min) & (root < t_max), root, first_root)
 
         p = r.at(second_root)
-        return HitRecord(t = second_root, p = p, normal = (p - self.center) / self.radius)
+        rec = HitRecord(t = second_root, p = p)
+        outward_normal = (p - self.center) / self.radius
+        rec.set_face_normal(r, outward_normal)
+        return rec
